@@ -1,8 +1,12 @@
 import type { NextPage } from 'next'
+import Navbar from '../src/component/Navbar'
+import HeaderBackgrounStyle from '../styles/homePage.module'
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2"></div>
+    <div className={`${HeaderBackgrounStyle.headerBG}`}>
+      <Navbar></Navbar>
+    </div>
   )
 }
 
