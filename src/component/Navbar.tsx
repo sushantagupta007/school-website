@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="bg-white drop-shadow">
+      <nav className="drop-shadow">
         <div className="mx-auto max-w-6xl px-4">
           {/* Desktop Version   */}
           <div className="flex justify-between">
@@ -22,7 +22,7 @@ const Navbar = () => {
               <div>
                 <a href="#" className="flex items-center py-4 px-2">
                   {/* <img src="logo.png" alt="Logo" className="mr-2 h-8 w-8" /> */}
-                  <span className="text-lg font-semibold text-blue-900">
+                  <span className="text-lg font-semibold text-white">
                     MySchool
                   </span>
                 </a>
@@ -31,25 +31,25 @@ const Navbar = () => {
               <div className="hidden items-center space-x-1 md:flex">
                 <a
                   href=""
-                  className="border-b-2 border-blue-500 py-2 px-2 font-semibold text-blue-500 "
+                  className="border-b-2 border-blue-500 py-2 px-2  text-white "
                 >
                   Home
                 </a>
                 <a
                   href=""
-                  className="py-4 px-2 font-semibold text-blue-500 transition duration-300 hover:text-blue-900"
+                  className=" py-4 px-2  text-white transition duration-300"
                 >
                   Services
                 </a>
                 <a
                   href=""
-                  className="py-4 px-2 font-semibold text-blue-500 transition duration-300 hover:text-blue-900"
+                  className=" py-4 px-2  text-white transition duration-300"
                 >
                   About
                 </a>
                 <a
                   href=""
-                  className="py-4 px-2 font-semibold text-blue-500 transition duration-300 hover:text-blue-900"
+                  className="duration-3 py-4 px-2  text-white transition"
                 >
                   Contact Us
                 </a>
@@ -60,7 +60,7 @@ const Navbar = () => {
             <div className="hidden items-center space-x-3 md:flex md:justify-end ">
               <a
                 href=""
-                className="rounded py-2 px-2 font-medium text-blue-400 transition duration-300 hover:bg-blue-500 hover:text-white"
+                className="rounded py-2 px-2 font-medium text-white transition duration-300 hover:bg-blue-500"
               >
                 Log In
               </a>

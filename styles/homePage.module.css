@@ -1,5 +1,7 @@
 .headerBG {
-  background-image: url('../src/image/Vector.png');
+  background-image: url('../src/image/Vector2.png');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
+  background-color: #26335d;
 }
