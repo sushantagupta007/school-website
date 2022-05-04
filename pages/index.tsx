@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import Banner from '../src/component/Banner'
 import Contact from '../src/component/Contact'
+import Footer from '../src/component/Footer'
+import FooterEnd from '../src/component/FooterEnd'
 import MyCards from '../src/component/MyCards'
 import MyCourse from '../src/component/MyCourse'
 import Navbar from '../src/component/Navbar'
@@ -22,6 +24,8 @@ const Home: NextPage = () => {
       <MyCourse></MyCourse>
       <Testimonial></Testimonial>
       <Contact></Contact>
+      <Footer></Footer>
+      <FooterEnd></FooterEnd>
     </>
   )
 }

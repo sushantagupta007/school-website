@@ -21,8 +21,7 @@ const Contact = () => {
             placeholder="Your Email"
           ></input>
           <button
-            style={{ backgroundColor: 'rgba(141, 92, 246, 1)' }}
-            className="pointer hover: border px-2 text-white"
+            className="pointer border bg-blue-300 px-2 text-white hover:bg-blue-500"
             type="button"
           >
             Subscribe
