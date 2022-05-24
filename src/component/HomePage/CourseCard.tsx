@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import { AiFillStar, AiOutlineArrowRight } from 'react-icons/ai'
-import CourseStyle from '../../styles/courses.module.css'
+import CourseStyle from '../../../styles/courses.module.css'
 
 interface CourseCardProp {
   img: any

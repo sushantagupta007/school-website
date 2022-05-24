@@ -1,6 +1,6 @@
 import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
-import StarColor from '../../styles/StartColor.module.css'
+import StarColor from '../../../styles/StartColor.module.css'
 
 const StartGenerate = (rate: any) => {
   return (

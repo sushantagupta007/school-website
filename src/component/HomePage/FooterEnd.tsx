@@ -3,7 +3,7 @@ import { BsFacebook } from 'react-icons/bs'
 const FooterEnd = () => {
   return (
     <div className="flex flex-col justify-around md:flex-row">
-      <p> Made With Love By Figmaland All Right Reserved </p>
+      <p className="text-sm"> CopyRight @ MySchool </p>
       <div className="flex ">
         <ul className="flex">
           <li className="mr-4">

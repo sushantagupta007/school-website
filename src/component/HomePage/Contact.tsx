@@ -1,7 +1,19 @@
-import React from 'react'
-import CourseStyle from '../../styles/courses.module.css'
-import MyCardStyle from '../../styles/mycard.module.css'
+import React, { useContext } from 'react'
+import { useForm } from 'react-hook-form'
+import CourseStyle from '../../../styles/courses.module.css'
+import MyCardStyle from '../../../styles/mycard.module.css'
+import { AuthContext } from '../../context/AuthProvider'
+
 const Contact = () => {
+  const { makeSubscribe } = useContext(AuthContext)
+
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = (data: any) => {
+    console.log(data)
+    makeSubscribe(data)
+  }
+
   return (
     <div className={`${MyCardStyle.bg}`}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-center px-4">
@@ -14,15 +26,19 @@ const Contact = () => {
           Problems trying to resolve the conflict between the two major realms
           of Classical physics: Newtonian mechanics
         </p>
-        <form className="flex w-3/5 border-slate-100">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex w-3/5 border-slate-100"
+        >
           <input
             className=" grow-2 w-full border-0 p-4"
-            type="text"
+            type="email"
             placeholder="Your Email"
-          ></input>
+            {...register('email', { required: true, maxLength: 255 })}
+          />
           <button
             className="pointer border bg-blue-300 px-2 text-white hover:bg-blue-500"
-            type="button"
+            type="submit"
           >
             Subscribe
           </button>

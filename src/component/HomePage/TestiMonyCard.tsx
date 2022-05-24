@@ -15,7 +15,7 @@ const TestiMonyCard = ({ img, rating }: TestiMonyObj) => {
         Slate helps you see how many more days you need to work to reach your
         financial goal for the month and year.
       </p>
-      <div className="mx-auto flex border">
+      <div className="mx-auto flex">
         <Image src={img} alt="Regina Miles" />
         <div className="flex flex-col items-center justify-center">
           <p> Regina Miles </p>

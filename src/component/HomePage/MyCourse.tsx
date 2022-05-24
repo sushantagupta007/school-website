@@ -1,6 +1,6 @@
 import React from 'react'
-import CourseStyle from '../../styles/courses.module.css'
-import CardStyle from '../../styles/mycard.module.css'
+import CourseStyle from '../../../styles/courses.module.css'
+import CardStyle from '../../../styles/mycard.module.css'
 import CourseCards from './CourseCards'
 
 const MyCourse = () => {

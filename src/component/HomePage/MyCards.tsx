@@ -1,8 +1,8 @@
 import React from 'react'
-import BgColor from '../../styles/mycard.module.css'
-import CardImage3 from '../image/courses.png'
-import CardImage2 from '../image/expert.png'
-import CardImage from '../image/online.png'
+import BgColor from '../../../styles/mycard.module.css'
+import CardImage3 from '../../image/courses.png'
+import CardImage2 from '../../image/expert.png'
+import CardImage from '../../image/online.png'
 import MyCard from './MyCard'
 
 const MyCards = () => {

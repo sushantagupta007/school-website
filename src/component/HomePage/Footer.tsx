@@ -3,7 +3,7 @@ import React from 'react'
 import { AiOutlineMail } from 'react-icons/ai'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { GoLocation } from 'react-icons/go'
-import MyCardStyle from '../../styles/mycard.module.css'
+import MyCardStyle from '../../../styles/mycard.module.css'
 const Footer = () => {
   return (
     <div className={MyCardStyle.bg}>
@@ -11,12 +11,12 @@ const Footer = () => {
         <div className="grid gap-3 md:grid-cols-5">
           {/* First Col */}
           <ul>
-            <li>
+            <ul>
               <li> Company Info</li>
               <Link href="/">
                 <a>About Us</a>
               </Link>
-            </li>
+            </ul>
             <li>
               <Link href="/about">
                 <a>Career</a>

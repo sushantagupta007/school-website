@@ -1,7 +1,7 @@
 import React from 'react'
-import CourseStyle from '../../styles/courses.module.css'
-import MyCardStyle from '../../styles/mycard.module.css'
-import TestiMonyPic from '../image/testimony1.png'
+import CourseStyle from '../../../styles/courses.module.css'
+import MyCardStyle from '../../../styles/mycard.module.css'
+import TestiMonyPic from '../../image/testimony1.png'
 import TestiMonyCard from './TestiMonyCard'
 
 const Testimonial = () => {
