@@ -9,6 +9,7 @@ const Register = () => {
     bloodGroup: '',
     guardian: '',
     mobile: '',
+    email: '',
     admissionYear: '',
     district: '',
     thana: '',
@@ -61,6 +62,7 @@ const Register = () => {
     formData.append('mobile', inputField.mobile)
     formData.append('admissionYear', inputField.admissionYear)
     formData.append('id', studentId)
+    formData.append('email', inputField.email)
 
     console.log(formData)
     try {
@@ -193,6 +195,14 @@ const Register = () => {
               onChange={handleChange}
               className="rounded border p-1 "
               type="number"
+            />
+            <label className="my-2 font-bold"> Email </label>
+            <input
+              name="email"
+              value={inputField.email}
+              onChange={handleChange}
+              className="rounded border p-1 "
+              type="email"
             />
             <label className="my-2 font-bold"> Class </label>
             <input
