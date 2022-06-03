@@ -1,5 +1,5 @@
 import cogoToast from 'cogo-toast'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 let subjects = [
   'Bangla',
@@ -18,6 +18,7 @@ const Result = () => {
     subject: '',
     number: '',
     grade: '',
+    fullMarks: '100',
   })
 
   const [data, setData] = useState()
@@ -43,7 +44,6 @@ const Result = () => {
   }
 
   let oldArray: any[] = []
-
   const handleAdd = () => {
     let inputSubject = inputField.subject
     oldArray.push(inputField)
@@ -79,12 +79,8 @@ const Result = () => {
           return
         }
 
-        console.log('matched')
         parseArray.push(inputField)
         localStorage.setItem('value', JSON.stringify(parseArray))
-
-        console.log(inputField.subject)
-
         if (
           parseArray.length === subjects.length ||
           localStorage.length === subjects.length
@@ -98,10 +94,12 @@ const Result = () => {
           localStorage.removeItem('value')
           window.location.reload()
         }
-        console.log(parseArray.length)
       }
     }
   }
+  useEffect(() => {
+    localStorage.removeItem('value')
+  }, [])
 
   return (
     <div className="h-full bg-blue-100 md:h-screen">
@@ -132,7 +130,7 @@ const Result = () => {
           </div>
           {subjects.map((item) => {
             return (
-              <div key={item} className="grid gap-2 md:grid-cols-4">
+              <div key={item} className="grid gap-2 md:grid-cols-5">
                 <div className="flex justify-end">
                   <select
                     className="my-1 w-full md:w-full"
@@ -176,6 +174,14 @@ const Result = () => {
                   </select>
                 </div>
                 <div>
+                  <input
+                    className="my-1 w-full border p-1"
+                    type="text"
+                    readOnly
+                    defaultValue={`Full Marks ${inputField.fullMarks}`}
+                  />
+                </div>
+                <div>
                   <button
                     className="mt-2 w-full rounded border bg-blue-200  font-bold hover:bg-blue-400 hover:text-white hover:text-white hover:underline md:mx-auto"
                     type="button"
@@ -188,9 +194,9 @@ const Result = () => {
             )
           })}
           <input
-            className=" hover:white mt-2 w-1/5 rounded  border bg-blue-300 font-bold hover:bg-blue-400 hover:underline md:mx-auto"
+            className=" hover:white mt-2 w-2/5 rounded  border bg-blue-300 font-bold hover:bg-blue-400 hover:underline md:mx-auto"
             type="submit"
-            value="Result"
+            value="Generate Result Sheet"
             onClick={handleSubmit}
           />
         </form>
@@ -244,6 +250,10 @@ const Result = () => {
           </table>
         </div>
       </div>
+      <p className="px-7 text-left text-red-400">
+        **To select bangla, first select another subject and then select
+        bangla**
+      </p>
     </div>
   )
 }
