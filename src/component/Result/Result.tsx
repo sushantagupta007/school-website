@@ -1,105 +1,88 @@
-import cogoToast from 'cogo-toast'
-import React, { useEffect, useState } from 'react'
+import Router from 'next/router'
+import { useForm } from 'react-hook-form'
 
-let subjects = [
-  'Bangla',
-  'English',
-  'Math',
-  'Science',
-  'Social Science',
-  'GK',
-  'IT',
-]
+type resultInfo = {
+  bangla: string
+  banglaScore: number
+  bGrade: string
+  english: string
+  eGrade: string
+  englishScore: number
+  egrade: string
+  math: string
+  mathScore: number
+  mGrade: string
+  science: string
+  scienceScore: number
+  scienceGrade: string
+  socialScience: string
+  socialGrade: string
+  socialScienceScore: number
+  gk: string
+  gkGrade: string
+  gkScore: number
+  It: string
+  itGrade: string
+  ItScore: number
+  grade: string
+  student: string
+  id: number
+  ct: string
+}
 
 const Result = () => {
-  const [inputField, setInputField] = useState({
-    student: '',
-    sid: '',
-    subject: '',
-    number: '',
-    grade: '',
-    fullMarks: '100',
-  })
+  const { register, handleSubmit } = useForm<resultInfo>()
 
-  const [data, setData] = useState()
+  const onSubmit = (data: resultInfo) => {
+    const {
+      student,
+      id,
+      bangla,
+      banglaScore,
+      bGrade,
+      english,
+      egrade,
+      englishScore,
+      math,
+      mGrade,
+      mathScore,
+      science,
+      scienceGrade,
+      scienceScore,
+      socialGrade,
+      socialScience,
+      socialScienceScore,
+      gk,
+      gkScore,
+      gkGrade,
+      It,
+      itGrade,
+      ItScore,
+      ct,
+    } = data
 
-  const handleChange = (e: any) => {
-    console.log(e.target.value)
-    setInputField({ ...inputField, [e.target.name]: e.target.value })
+    let resultInfo = [
+      { student: student },
+      { id: id },
+      { bangla: { score: banglaScore, grade: bGrade } },
+      { english: { score: englishScore, grade: bGrade } },
+      { math: { score: mathScore, grade: mGrade } },
+      { science: { score: scienceScore, grade: scienceGrade } },
+      { socialScience: { score: socialScienceScore, grade: socialGrade } },
+      { gk: { score: gkScore, grade: gkGrade } },
+      { It: { score: ItScore, grade: itGrade } },
+      { ct: ct },
+    ]
+
+    fetch('http://localhost:5000/teacher/postresult', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(resultInfo),
+    }).then((res) => Router.push(res.url))
+    console.log(resultInfo)
   }
-
-  const handleSubmit = (e: any) => {
-    if (
-      !inputField.sid ||
-      !inputField.number ||
-      !inputField.grade ||
-      !inputField.subject ||
-      !inputField.student
-    ) {
-      cogoToast.warn('All Fields Are Required')
-    }
-
-    console.log(data)
-    e.preventDefault()
-  }
-
-  let oldArray: any[] = []
-  const handleAdd = () => {
-    let inputSubject = inputField.subject
-    oldArray.push(inputField)
-    //Check subjet fields are empty or not
-    if (!inputSubject) {
-      cogoToast.warn('Subject Fields Are Mandatory')
-    }
-
-    if (inputSubject) {
-      if (!localStorage.getItem('value')) {
-        localStorage.setItem('value', JSON.stringify(oldArray))
-      } else {
-        let myArry = localStorage.getItem('value')
-        let parseArray = JSON.parse(myArry)
-        let localSubject = parseArray[0]?.subject
-        let localSubject1 = parseArray[1]?.subject
-        let localSubject2 = parseArray[2]?.subject
-        let localSubject3 = parseArray[3]?.subject
-        let localSubject4 = parseArray[4]?.subject
-        let localSubject5 = parseArray[5]?.subject
-        let localSubject6 = parseArray[6]?.subject
-
-        if (
-          localSubject === inputSubject ||
-          localSubject1 === inputSubject ||
-          localSubject2 === inputSubject ||
-          localSubject3 === inputSubject ||
-          localSubject4 === inputSubject ||
-          localSubject5 === inputSubject ||
-          localSubject6 === inputSubject
-        ) {
-          cogoToast.warn('Duplicated Fields Are not Allowed')
-          return
-        }
-
-        parseArray.push(inputField)
-        localStorage.setItem('value', JSON.stringify(parseArray))
-        if (
-          parseArray.length === subjects.length ||
-          localStorage.length === subjects.length
-        ) {
-          setData(parseArray)
-        }
-        if (
-          parseArray.length > subjects.length ||
-          localStorage.length > subjects.length
-        ) {
-          localStorage.removeItem('value')
-          window.location.reload()
-        }
-      }
-    }
-  }
-  useEffect(() => {
-    localStorage.removeItem('value')
-  }, [])
 
   return (
     <div className="h-full bg-blue-100 md:h-screen">
@@ -107,99 +90,178 @@ const Result = () => {
         Result Processing Form
       </h1>
       <div className="grid md:grid-cols-12">
-        <form className=" col-span-12 flex flex-col p-2 md:col-span-9 md:p-0 md:px-10 ">
-          <div className="grid gap-2 md:grid-cols-2 ">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" col-span-12 flex flex-col p-2 md:col-span-9 md:p-0 md:px-10 "
+        >
+          {/* Student and Id */}
+          <div className="grid gap-2 md:grid-cols-3 ">
             <div className="flex justify-end">
               <input
-                name="student"
                 className="my-1 w-full gap-2 p-1"
                 placeholder="studentName"
-                value={inputField.student}
-                onChange={handleChange}
+                {...register('student', { required: true })}
               />
             </div>
             <div>
               <input
-                name="sid"
                 className="my-1 w-full border p-1"
                 placeholder="Student Id"
-                value={inputField.sid}
-                onChange={handleChange}
+                {...register('id', { required: true })}
+              />
+            </div>
+            <div>
+              <input
+                className="my-1 w-full border p-1"
+                placeholder="Course Teacher"
+                {...register('ct', { required: true })}
               />
             </div>
           </div>
-          {subjects.map((item) => {
-            return (
-              <div key={item} className="grid gap-2 md:grid-cols-5">
-                <div className="flex justify-end">
-                  <select
-                    className="my-1 w-full md:w-full"
-                    name="subject"
-                    // value={inputField.subject}
-                    onChange={handleChange}
-                  >
-                    <option defaultValue="bangla">Bangla</option>
-                    <option value="english">English</option>
-                    <option value="math">Math</option>
-                    <option value="social science">Social Science</option>
-                    <option value="science">Science</option>
-                    <option value="it">IT</option>
-                    <option value="gk">GK</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    className="my-1 w-full  border p-1"
-                    placeholder="Score"
-                    type="text"
-                    name="number"
-                    // value={inputField.number}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
-                  <select
-                    className="my-1 w-full border p-1 md:w-full"
-                    name="grade"
-                    onChange={handleChange}
-                    // value={inputField.grade}
-                  >
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A">A-</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="F">F</option>
-                  </select>
-                </div>
-                <div>
-                  <input
-                    className="my-1 w-full border p-1"
-                    type="text"
-                    readOnly
-                    defaultValue={`Full Marks ${inputField.fullMarks}`}
-                  />
-                </div>
-                <div>
-                  <button
-                    className="mt-2 w-full rounded border bg-blue-200  font-bold hover:bg-blue-400 hover:text-white hover:text-white hover:underline md:mx-auto"
-                    type="button"
-                    onClick={handleAdd}
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-            )
-          })}
+          {/* Subject and Marks */}
+          <div className="flex flex-col">
+            {/* Bangla */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="Bangla"
+                id="banglaScore"
+                {...register('bangla', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="Bangla"
+                id="bangla"
+                {...register('bGrade', { required: true })}
+              />
+
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('banglaScore', { required: true })}
+              />
+            </div>
+            {/* English */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="English "
+                {...register('english', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="English"
+                {...register('eGrade', { required: true })}
+              />
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('englishScore', { required: true })}
+              />
+            </div>
+            {/* Math */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="Math"
+                {...register('math', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="Math"
+                {...register('mGrade', { required: true })}
+              />
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('mathScore', { required: true })}
+              />
+            </div>
+            {/* Science */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="Science"
+                {...register('science', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="Science"
+                {...register('scienceGrade', { required: true })}
+              />
+
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('scienceScore', { required: true })}
+              />
+            </div>
+            {/* Social Science */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="Social Science"
+                {...register('socialScience', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="Social Science"
+                {...register('socialGrade', { required: true })}
+              />
+
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('socialScienceScore', { required: true })}
+              />
+            </div>
+            {/* GK */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="GK"
+                {...register('gk', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="GK"
+                {...register('gkGrade', { required: true })}
+              />
+
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('gkScore', { required: true })}
+              />
+            </div>
+            {/* IT */}
+            <div className="my-1 flex justify-between">
+              <input
+                className="w-2/5 rounded p-2"
+                defaultValue="IT"
+                {...register('It', { required: true })}
+              />
+              <input
+                className="mx-5 w-2/5 rounded p-2"
+                placeholder="IT"
+                {...register('itGrade', { required: true })}
+              />
+
+              <input
+                className="w-1/5 rounded p-2"
+                placeholder="Score"
+                {...register('ItScore', { required: true })}
+              />
+            </div>
+          </div>
+
           <input
             className=" hover:white mt-2 w-2/5 rounded  border bg-blue-300 font-bold hover:bg-blue-400 hover:underline md:mx-auto"
             type="submit"
             value="Generate Result Sheet"
-            onClick={handleSubmit}
           />
         </form>
+        {/* GPA and Number */}
         <div className="col-span-12 p-2 md:col-span-3 md:p-0  ">
           <h1 className="text-center font-bold"> GPA and Number </h1>
           <table className="w-full table-auto">
@@ -250,10 +312,6 @@ const Result = () => {
           </table>
         </div>
       </div>
-      <p className="px-7 text-left text-red-400">
-        **To select bangla, first select another subject and then select
-        bangla**
-      </p>
     </div>
   )
 }
