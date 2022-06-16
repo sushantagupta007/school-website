@@ -31,8 +31,25 @@ type resultInfo = {
 }
 
 const Result = () => {
-  const { register, handleSubmit } = useForm<resultInfo>()
+  const { register, handleSubmit, setValue } = useForm<resultInfo>()
 
+  const settingGrade = (score: any, fieldGrade: any) => {
+    if (score >= 80 && score <= 100) {
+      setValue(fieldGrade, 'A+')
+    } else if (score >= 70 && score <= 79) {
+      setValue(fieldGrade, 'A')
+    } else if (score >= 60 && score <= 69) {
+      setValue(fieldGrade, 'A-')
+    } else if (score >= 50 && score <= 59) {
+      setValue(fieldGrade, 'B')
+    } else if (score >= 40 && score <= 49) {
+      setValue(fieldGrade, 'C')
+    } else if (score >= 33 && score <= 39) {
+      setValue(fieldGrade, 'D')
+    } else {
+      setValue(fieldGrade, 'F')
+    }
+  }
   const onSubmit = (data: resultInfo) => {
     const {
       student,
@@ -80,10 +97,72 @@ const Result = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(resultInfo),
-    }).then((res) => Router.push(res.url))
-    console.log(resultInfo)
+    }).then((res) => {
+      Router.push(res.url)
+      console.log(res)
+    })
   }
-
+  const handleDown = (e: any) => {
+    let fieldName = e.target.name
+    let keyValue = e.target.value
+    console.log(fieldName)
+    if (fieldName === 'englishScore') {
+      if (e.key === 'Backspace') {
+        setValue('eGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'eGrade')
+      }
+    }
+    if (fieldName === 'mathScore') {
+      if (e.key === 'Backspace') {
+        setValue('mGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'mGrade')
+      }
+    }
+    if (fieldName === 'banglaScore') {
+      if (e.key === 'Backspace') {
+        setValue('bGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'bGrade')
+      }
+    }
+    if (fieldName === 'scienceScore') {
+      if (e.key === 'Backspace') {
+        setValue('scienceGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'scienceGrade')
+      }
+    }
+    if (fieldName === 'socialScienceScore') {
+      if (e.key === 'Backspace') {
+        setValue('socialGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'socialGrade')
+      }
+    }
+    if (fieldName === 'gkScore') {
+      if (e.key === 'Backspace') {
+        setValue('gkGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'gkGrade')
+      }
+    }
+    if (fieldName === 'ItScore') {
+      if (e.key === 'Backspace') {
+        setValue('itGrade', '')
+      }
+      if (keyValue.length === 2 || keyValue.length === 1) {
+        settingGrade(keyValue, 'itGrade')
+      }
+    }
+  }
   return (
     <div className="h-full bg-blue-100 md:h-screen">
       <h1 className="mb-2 p-5 text-center text-3xl font-bold">
@@ -125,7 +204,6 @@ const Result = () => {
               <input
                 className="w-2/5 rounded p-2"
                 defaultValue="Bangla"
-                id="banglaScore"
                 {...register('bangla', { required: true })}
               />
               <input
@@ -138,6 +216,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('banglaScore', { required: true })}
               />
             </div>
@@ -156,6 +235,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('englishScore', { required: true })}
               />
             </div>
@@ -174,6 +254,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('mathScore', { required: true })}
               />
             </div>
@@ -193,6 +274,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('scienceScore', { required: true })}
               />
             </div>
@@ -212,6 +294,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('socialScienceScore', { required: true })}
               />
             </div>
@@ -231,6 +314,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('gkScore', { required: true })}
               />
             </div>
@@ -250,6 +334,7 @@ const Result = () => {
               <input
                 className="w-1/5 rounded p-2"
                 placeholder="Score"
+                onKeyUp={(e) => handleDown(e)}
                 {...register('ItScore', { required: true })}
               />
             </div>
