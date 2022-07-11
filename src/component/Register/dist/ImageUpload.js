@@ -47,9 +47,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var router_1 = require("next/router");
 var react_1 = require("react");
 var react_hook_form_1 = require("react-hook-form");
 var ImageUpload = function () {
+    var router = router_1.useRouter();
+    var id = router.query._id;
     // const collectImage = () => {
     //   console.log('hello')
     //   fetch('http://localhost:5000/admin/getImage').then((res) =>
@@ -65,7 +68,7 @@ var ImageUpload = function () {
                 case 0:
                     formData = new FormData();
                     formData.append('file', data.file[0]);
-                    return [4 /*yield*/, fetch('http://localhost:5000/admin/image', {
+                    return [4 /*yield*/, fetch("http://localhost:5000/admin/student_register?id=" + id, {
                             method: 'POST',
                             body: formData
                         }).then(function (res) {

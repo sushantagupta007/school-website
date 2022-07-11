@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const ImageUpload = () => {
+  const router = useRouter()
+  let id = router.query._id
   // const collectImage = () => {
   //   console.log('hello')
   //   fetch('http://localhost:5000/admin/getImage').then((res) =>
@@ -15,10 +18,13 @@ const ImageUpload = () => {
     const formData = new FormData()
     formData.append('file', data.file[0])
 
-    const res = await fetch('http://localhost:5000/admin/image', {
-      method: 'POST',
-      body: formData,
-    }).then((res) => {
+    const res = await fetch(
+      `http://localhost:5000/admin/student_register?id=${id}`,
+      {
+        method: 'POST',
+        body: formData,
+      }
+    ).then((res) => {
       // if (res) {
       //   collectImage()
       // }

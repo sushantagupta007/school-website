@@ -98,8 +98,11 @@ const Result = () => {
       },
       body: JSON.stringify(resultInfo),
     }).then((res) => {
+
+      console.log(res.url)
+      // s
       Router.push(res.url)
-      console.log(res)
+      
     })
   }
   const handleDown = (e: any) => {
