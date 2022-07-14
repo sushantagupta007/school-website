@@ -98,11 +98,8 @@ const Result = () => {
       },
       body: JSON.stringify(resultInfo),
     }).then((res) => {
-
-      console.log(res.url)
-      // s
       Router.push(res.url)
-      
+      console.log(res)
     })
   }
   const handleDown = (e: any) => {
@@ -165,6 +162,18 @@ const Result = () => {
         settingGrade(keyValue, 'itGrade')
       }
     }
+  }
+  const handlelEmailSend =() =>{
+    fetch("http://localhost:5000/teacher/sendPdf",{
+      method:"POST",
+      headers:{
+        'Content-Type': 'text/html'
+      },
+      body:"Sushanta"
+
+    })
+    .then(res=>console.log(res))
+    
   }
   return (
     <div className="h-full bg-blue-100 md:h-screen">
@@ -344,7 +353,7 @@ const Result = () => {
           </div>
 
           <input
-            className=" hover:white mt-2 w-2/5 rounded  border bg-blue-300 font-bold hover:bg-blue-400 hover:underline md:mx-auto"
+            className=" hover:white mt-2 w-2/5 rounded  border bg-blue-300 font-semibold  hover:bg-blue-400 hover:underline md:mx-auto"
             type="submit"
             value="Generate Result Sheet"
           />
@@ -398,6 +407,7 @@ const Result = () => {
               </tr>
             </tbody>
           </table>
+          <button  onClick={handlelEmailSend} className="hover:white mt-2 w-3/5 rounded border bg-blue-300 font-semibold hover:bg-blue-400 hover:underline md:mx-auto" type='button'> Send Pdf </button>
         </div>
       </div>
     </div>
